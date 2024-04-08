@@ -1,7 +1,16 @@
+import { Route, Routes } from "react-router-dom";
+import Header from "./components/Header";
+import Search from "./components/Search";
+import Cities from "./components/Cities";
+
 export default function App() {
   return (
-    <h1 className="text-3xl text-center font-bold underline">
-      Weather App
-    </h1>
+    <>
+      <Header />
+      <Routes>
+        <Route path='/' element={<Cities />} />
+        <Route path='/search' element={<Search />} />
+      </Routes>
+    </>
   )
 }
