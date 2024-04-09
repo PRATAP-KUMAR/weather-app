@@ -8,8 +8,8 @@ function Header() {
                     WeatherApp
                 </div>
                 <div className='flex row space-x-5'>
-                    <Link className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded' to={'/'}>Cities</Link>
-                    <Link className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded' to={'/search'}>Search</Link>
+                    <Link className='btn-blue' to={'/'}>Cities</Link>
+                    <Link className='btn-blue' to={'/search'}>Search</Link>
                 </div>
             </div>
         </div>
