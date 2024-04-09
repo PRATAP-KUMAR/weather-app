@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { ImSpinner3 } from "react-icons/im";
 import classNames from "./classNames";
 
@@ -11,12 +12,15 @@ function Search() {
     const [data, setData] = useState(null);
     const [disable, setDisable] = useState(null);
 
+    const navigate = useNavigate();
+
     const addCity = (e) => {
         let city = e.target.id;
         console.log(city);
         const cities = JSON.parse(localStorage.getItem("cities")) || [];
-        cities.push(city.toLowerCase());
+        cities.unshift(city.toLowerCase());
         localStorage.setItem("cities", JSON.stringify(cities));
+        navigate('/');
     }
 
     const getSearchValue = (e) => {
@@ -26,7 +30,6 @@ function Search() {
         setLoading(true);
         const elements = new FormData(e.currentTarget);
         const city = elements.get('city')
-        console.log(city);
         e.currentTarget.reset();
 
         fetch(`${URL}?q=${city}&appid=${APP_ID}`)
@@ -34,7 +37,6 @@ function Search() {
             .then(data => {
                 if (data.cod === 200) {
                     setData(data);
-                    console.log(data);
                 } else if (!city) {
                     setErrorMsg('Empty Query');
                 } else {
