@@ -77,7 +77,7 @@ function Search() {
                             <h2>City: <span>{data?.name}</span></h2>
                             <h2>Temp: <span>{parseFloat(data?.main?.temp - 273.15).toFixed(2)} Celcius</span></h2>
                             <h2>Weather: <span>{data?.weather[0]?.description}</span></h2>
-                            <h2>Wind Speed: <span>{data?.wind?.speed}</span></h2>
+                            <h2>Wind Speed: <span>{data?.wind?.speed} meters/sec</span></h2>
                             <h2>Country Code: <span>{data?.sys.country}</span></h2>
                         </div>
                         <div>
