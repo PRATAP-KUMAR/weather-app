@@ -5,8 +5,8 @@ function Cities() {
 
     return (
         <div className="bg-sky-900">
-            <div className='min-h-[calc(100vh-4rem)] grid max-w-3xl mx-auto'>
-                {!cities ? (<div className="text-xl font-bold text-center">
+            <div className='min-h-[calc(100vh-4rem)] bg-sky-200 max-w-3xl mx-auto'>
+                {!cities ? (<div className="text-2xl text-white font-bold text-center flex justify-center items-center">
                     No cities were added
                     <br />
                     Click search button to search for city and then add.

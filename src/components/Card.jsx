@@ -22,13 +22,13 @@ function Card(props) {
     {
         return data ?
             (
-                <div className="relative w-full min-h-[200px] bg-sky-200 space-y-5 flex flex-col p-4 border-b border-gray-900">
+                <div className="relative w-full space-y-5 flex flex-col p-4 border-b border-gray-900">
                     <div className='absolute right-5 top-5'>{index}</div>
                     <h2>City: <span className='text-xl text-gray-900'>{data?.name}</span></h2>
-                    <h2>Country Code: <span>{data?.sys.country}</span></h2>
                     <h2>Temp: <span>{parseFloat(data?.main?.temp - 273.15).toFixed(2)} Celcius</span></h2>
                     <h2>Weather: <span>{data?.weather[0]?.description}</span></h2>
                     <h2>Wind Speed: <span>{data?.wind?.speed}</span></h2>
+                    <h2>Country Code: <span>{data?.sys.country}</span></h2>
                 </div >
             ) : null;
     }
