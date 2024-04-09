@@ -54,8 +54,8 @@ function Search() {
     }
 
     return (
-        <div>
-            <form className='flex items-center justify-center my-5 space-x-5'
+        <div className='min-h-[calc(100vh-4rem)] bg-sky-200 justify-center'>
+            <form className='flex items-center justify-center py-5 space-x-5'
                 onSubmit={getSearchValue}
             >
                 <input className='text-center border border-sky-400 h-12 outline-none focus:border-2'
@@ -73,12 +73,12 @@ function Search() {
                 data ? (
                     <div>
                         <h2 className="text-center font-bold text-orange-500">Search Result</h2>
-                        <div className="relative min-h-[200px] w-fit mx-auto bg-sky-200 justify-center rounded-3xl space-y-5 flex flex-col p-10">
-                            <h2 className="font-bold">City: <span>{data?.name}</span></h2>
-                            <h2 className="text-left">Country Code: <span>{data?.sys.country}</span></h2>
+                        <div className="relative min-h-[200px] w-fit mx-auto text-white bg-sky-900 justify-center rounded-3xl space-y-5 flex flex-col p-10">
+                            <h2>City: <span>{data?.name}</span></h2>
                             <h2>Temp: <span>{parseFloat(data?.main?.temp - 273.15).toFixed(2)} Celcius</span></h2>
                             <h2>Weather: <span>{data?.weather[0]?.description}</span></h2>
                             <h2>Wind Speed: <span>{data?.wind?.speed}</span></h2>
+                            <h2>Country Code: <span>{data?.sys.country}</span></h2>
                         </div>
                         <div>
                             <button id={data?.name} disabled={disable} onClick={addCity}
