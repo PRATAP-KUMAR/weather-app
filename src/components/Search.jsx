@@ -17,7 +17,7 @@ function Search() {
     const addCity = (e) => {
         let city = e.target.id;
         console.log(city);
-        const cities = JSON.parse(localStorage.getItem("cities")) || [];
+        const cities = JSON.parse(localStorage.getItem('cities')) || [];
         cities.unshift(city.toLowerCase());
         localStorage.setItem("cities", JSON.stringify(cities));
         navigate('/');
@@ -29,7 +29,7 @@ function Search() {
         setData(null);
         setLoading(true);
         const elements = new FormData(e.currentTarget);
-        const city = elements.get('city')
+        const city = elements.get('city').trim();
         e.currentTarget.reset();
 
         fetch(`${URL}?q=${city}&appid=${APP_ID}`)
@@ -46,7 +46,7 @@ function Search() {
             .then(() => setLoading(false))
             .catch(err => setErrorMsg(err.message))
 
-        localStorage.getItem("cities")?.includes(city.toLowerCase())
+        localStorage.getItem('cities')?.includes(city.toLowerCase())
             ?
             setDisable(true)
             :
@@ -81,7 +81,7 @@ function Search() {
                             <h2>Country Code: <span>{data?.sys.country}</span></h2>
                         </div>
                         <div>
-                            <button id={data?.name} disabled={disable} onClick={addCity}
+                            <button id={data?.name.trim()} disabled={disable} onClick={addCity}
                                 className={classNames(disable ? "cursor-not-allowed bg-blue-300 hover:bg-blue-200" : null, "btn-blue w-fit mx-auto mt-5 flex items-center justify-center")}>
                                 Add City
                             </button>
