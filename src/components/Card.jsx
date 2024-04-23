@@ -50,7 +50,7 @@ function Card(props) {
                             <ImSpinner3 />
                         </div>
                     </div>
-                    : <div className='relative min-h-[200px] flex flex-col justify-start px-4 space-y-2 border-b border-gray-900'>
+                    : <div className='relative w-[500px] flex flex-col justify-start px-4 space-y-2 border border-gray-900'>
                         <div className='absolute right-2 top-2'>{index}</div>
                         <h2>City: <span className='text-xl text-cyan-900'>{data?.name}</span></h2>
                         <h2>Temp: <span>{parseFloat(data?.main?.temp - 273.15).toFixed(2)} Celcius</span></h2>

@@ -70,7 +70,7 @@ function Search() {
             {errorMsg ? (<div className="text-center text-red-500">{errorMsg}</div>) : null}
 
             {
-                data ? (
+                data && (
                     <div>
                         <h2 className="text-center font-bold text-orange-500">Search Result</h2>
                         <div className="relative min-h-[200px] w-fit mx-auto text-white bg-sky-900 justify-center rounded-3xl space-y-5 flex flex-col p-10">
@@ -89,7 +89,6 @@ function Search() {
                         {disable ? <div className="text-center">City already added</div> : null}
                     </div >
                 )
-                    : null
             }
         </div>
     )
