@@ -16,7 +16,7 @@ function Cities() {
 
     return (
         <div className="bg-sky-900">
-            <div className='bg-sky-200 max-w-4xl mx-auto'>
+            <div className='min-h-[calc(100vh-4rem)] bg-sky-200 max-w-4xl mx-auto'>
                 <div className="bg-sky-200 flex flex-col">
                     {cities.map((city, idx) => (
                         <Card city={city} key={city} index={cities.length - (idx)} />
