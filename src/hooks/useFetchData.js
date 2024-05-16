@@ -13,7 +13,9 @@ export const useFetchData = () => {
             setError(null);
             setData(null);
             setIsLoading(true);
-            const response = await fetch(`${URL}?q=${city}&appid=${APP_ID}`);
+            const response = await fetch(`${URL}?q=${city}&appid=${APP_ID}`, {
+                "Content-type": "application/json"
+            });
             const json = await response.json();
             if (json.cod === 200) {
                 setData(json);
