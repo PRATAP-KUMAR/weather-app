@@ -1,15 +1,15 @@
-import { Link } from 'react-router-dom'
+import CustomLink from './CustomLink';
 
 function Header() {
     return (
-        <div className='bg-gray-800  sticky top-0 left-0 z-50'>
+        <div className='bg-toodark sticky top-0 left-0 z-50'>
             <div className='flex justify-between items-center h-16 mx-5'>
-                <div className='font-bold text-lg md:text-2xl lg:text-3xl text-sky-300'>
-                    WeatherApp
+                <div className='font-bold text-orange-500 text-xl font-custom'>
+                    Weather App
                 </div>
                 <div className='flex row space-x-5'>
-                    <Link className='btn-blue' to={'/'}>Cities</Link>
-                    <Link className='btn-blue' to={'/search'}>Search</Link>
+                    <CustomLink routeTo="/" routeName="Cities" />
+                    <CustomLink routeTo="/search" routeName="Search" />
                 </div>
             </div>
         </div>

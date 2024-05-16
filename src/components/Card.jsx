@@ -1,31 +1,18 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { ImSpinner3 } from "react-icons/im";
+import { RiDeleteBin6Line } from "react-icons/ri";
 
-const URL = 'https://api.openweathermap.org/data/2.5/weather';
-const APP_ID = '95b6e0a286b8b8ecd2d8e7d0a25b41cb';
+import { useFetchData } from '../hooks/useFetchData';
 
 function Card(props) {
     const obj = props;
     const { city, index } = obj;
 
-    const [loading, setLoading] = useState(false);
-    const [errorMsg, setErrorMsg] = useState(null);
-    const [data, setData] = useState(null);
+    const { fetchData, isLoading, data, error } = useFetchData();
 
     useEffect(() => {
-        setLoading(true)
-        fetch(`${URL}?q=${city}&appid=${APP_ID}`)
-            .then(response => response.json())
-            .then(data => {
-                if (data.cod === 200) {
-                    setData(data);
-                } else {
-                    setErrorMsg(data.message)
-                }
-            })
-            .then(() => setLoading(false))
-            .catch((err) => setErrorMsg(err))
-    }, [city])
+        fetchData(city);
+    }, []);
 
     const removeCity = () => {
         const cities = JSON.parse(localStorage.getItem('cities'));
@@ -35,30 +22,33 @@ function Card(props) {
         window.location.reload();
     }
 
-    if (errorMsg) return (
-        <div className="min-h-[200px] flex items-center justify-center px-4 py-2 mx-auto text-red-500 text-xl border-b border-gray-900">
-            ERR_INTERNET_DISCONNECTED
-        </div>
-    );
-
     return (
         <div>
             {
-                loading ?
-                    <div className='min-h-[200px] flex items-center justify-center px-4 py-2 text-4xl mx-auto border-b border-gray-900'>
-                        <div className="animate-spin">
-                            <ImSpinner3 />
-                        </div>
+                error &&
+                <div className="min-h-[200px] bg-toodark flex items-center justify-center px-4 py-2 mx-auto text-red-500 text-xl border">
+                    You searched for city "{city}" and the {error}
+                </div>
+            }
+            {
+                isLoading &&
+                <div className='min-h-[150px] bg-dark flex items-center justify-center px-4 py-2 text-4xl mx-auto'>
+                    <div className="animate-spin">
+                        <ImSpinner3 />
                     </div>
-                    : <div className='relative flex flex-col justify-start px-4 space-y-2 border-b border-gray-900'>
-                        <div className='absolute right-2 top-2'>{index}</div>
-                        <h2>City: <span className='text-xl text-cyan-900'>{data?.name}</span></h2>
-                        <h2>Temp: <span>{parseFloat(data?.main?.temp - 273.15).toFixed(2)} Celcius</span></h2>
-                        <h2>Weather: <span>{data?.weather[0]?.description}</span></h2>
-                        <h2>Wind Speed: <span>{data?.wind?.speed} meters/sec</span></h2>
-                        <h2>Country Code: <span>{data?.sys.country}</span></h2>
-                        <button onClick={removeCity} className='btn-blue absolute right-2 bottom-2'>Remove</button>
-                    </div>
+                </div>
+            }
+            {
+                data &&
+                <div className='relative flex bg-dark flex-col justify-start px-4 space-y-2 shadow-2xl text-toolite'>
+                    <div className='absolute right-2 top-2 text-white'>{index}</div>
+                    <h2>City: <span className='text-xl text-orange-500 font-custom'>{data.name}</span></h2>
+                    <h2>Temp: <span>{parseFloat(data.main.temp - 273.15).toFixed(2)} Celcius</span></h2>
+                    <h2>Weather: <span>{data?.weather[0].description}</span></h2>
+                    <h2>Wind Speed: <span>{data.wind.speed} meters/sec</span></h2>
+                    <h2>Country Code: <span>{data.sys.country}</span></h2>
+                    <button onClick={removeCity} className='absolute right-2 bottom-2 text-2xl hover:text-orange-500 text-white'><RiDeleteBin6Line /></button>
+                </div>
             }
         </div >
     )

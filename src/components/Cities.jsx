@@ -5,7 +5,7 @@ function Cities() {
 
     if (cities.length === 0) {
         return (
-            <div className='min-h-[calc(100vh-4rem)] bg-sky-200 flex items-center justify-center'>
+            <div className='min-h-[calc(100vh-4rem)] bg-toolite flex items-center justify-center'>
                 <div className="text-lg md:text-2xl font-bold text-center">
                     <p>No cities were added.</p>
                     <p>Click search button to search for city and then add.</p>
@@ -15,15 +15,13 @@ function Cities() {
     }
 
     return (
-        <div className="bg-sky-900">
-            <div className='min-h-[calc(100vh-4rem)] bg-sky-200 max-w-4xl mx-auto'>
-                <div className="bg-sky-200 flex flex-col">
-                    {cities.map((city, idx) => (
-                        <Card city={city} key={city} index={cities.length - (idx)} />
-                    ))}
-                </div>
-            </div >
-        </div>
+        <div className='min-h-[calc(100vh-4rem)] bg-toolite max-w-4xl mx-auto'>
+            <div className="flex p-5 flex-col space-y-5">
+                {cities.map((city, idx) => (
+                    <Card city={city} key={city} showDeleteButton={true} index={cities.length - (idx)} />
+                ))}
+            </div>
+        </div >
     )
 }
 
