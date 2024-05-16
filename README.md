@@ -11,7 +11,7 @@
 3. `npm run dev`
 
 A live link is provided here for an immediate overview 
-https://pratap-panabaka-weather-app.netlify.app/.
+https://pratap-panabaka-weather-app.netlify.app/
 
 ### Screenshots
 
