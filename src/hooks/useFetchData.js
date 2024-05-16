@@ -5,7 +5,7 @@ export const useFetchData = () => {
     const [isLoading, setIsLoading] = useState(null);
     const [data, setData] = useState(null);
 
-    const URL = 'https://api.openweathermap.org/data/2.5/weather';
+    const URL = import.meta.env.VITE_URL;
     const APP_ID = import.meta.env.VITE_APP_ID;
 
     const fetchData = async (city) => {
