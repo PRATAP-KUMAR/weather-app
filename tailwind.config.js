@@ -1,10 +1,17 @@
 /** @type {import('tailwindcss').Config} */
+
+import defaultTheme from 'tailwindcss/defaultTheme';
+
 export default {
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
+    screens: {
+      'xs': '475px',
+      ...defaultTheme.screens,
+    },
     extend: {
       colors: {
         lite: "#948979",
@@ -13,8 +20,8 @@ export default {
         toodark: "#153448"
       },
       fontFamily: {
-        sans: ['"vesper-libre"', "sans-serif"],
-        custom: ['"alfarn"', "sans-serif"]
+        sans: ['"nunito"', "sans-serif"],
+        custom: ['"cooper-black-std"', "serif"]
       }
     },
   },

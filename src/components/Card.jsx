@@ -40,9 +40,9 @@ function Card(props) {
             }
             {
                 data &&
-                <div className='relative flex bg-dark flex-col justify-start px-4 space-y-2 shadow-2xl text-toolite'>
+                <div className='relative text-sm flex bg-dark flex-col justify-start px-4 space-y-2 shadow-2xl text-toolite'>
                     <div className='absolute right-2 top-2 text-white'>{index}</div>
-                    <h2>City: <span className='text-xl text-orange-500 font-custom'>{data.name}</span></h2>
+                    <h2>City: <span className='text-orange-500 font-custom'>{data.name}</span></h2>
                     <h2>Temp: <span>{parseFloat(data.main.temp - 273.15).toFixed(2)} Celcius</span></h2>
                     <h2>Weather: <span>{data?.weather[0].description}</span></h2>
                     <h2>Wind Speed: <span>{data.wind.speed} meters/sec</span></h2>

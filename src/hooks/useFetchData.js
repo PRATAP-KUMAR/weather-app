@@ -13,7 +13,8 @@ export const useFetchData = () => {
             setError(null);
             setData(null);
             setIsLoading(true);
-            const response = await fetch(`${URL}?q=${city}&appid=${APP_ID}`, {
+            let trimmed = city.trim().toLowerCase();
+            const response = await fetch(`${URL}?q=${trimmed}&appid=${APP_ID}`, {
                 mode: "cors"
             });
             const json = await response.json();

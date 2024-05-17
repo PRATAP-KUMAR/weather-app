@@ -15,7 +15,7 @@ function Search() {
         e.preventDefault();
         fetchData(city);
         const cities = JSON.parse(localStorage.getItem('cities'));
-        let regex = new RegExp(city.toLowerCase());
+        let regex = new RegExp(city.trim().toLowerCase());
         const match = cities.find(v => regex.test(v));
         match ?
             setDisable(true)
@@ -27,7 +27,7 @@ function Search() {
     const addCity = (e) => {
         let city = e.target.id;
         const cities = JSON.parse(localStorage.getItem('cities')) || [];
-        cities.unshift(city.toLowerCase());
+        cities.unshift(city);
         localStorage.setItem("cities", JSON.stringify(cities));
         navigate('/');
     }
@@ -40,7 +40,6 @@ function Search() {
                 <input
                     className='text-center border border-orange-500 text-orange-500 h-12 outline-none focus:border-2 font-custom placeholder:font-custom'
                     type='text'
-                    name="city"
                     placeholder='type city name'
                     onChange={(e) => setCity(e.target.value)}
                     required
@@ -51,7 +50,7 @@ function Search() {
             <div>
                 {
                     error &&
-                    < div className="min-h-[200px] bg-toodark flex flex-col space-y-5 text-center items-center justify-center px-4 py-2 mx-auto text-white text-xl font-custom">
+                    < div className="min-h-[200px] bg-toodark flex flex-col space-y-2 text-center items-center justify-center px-4 py-2 mx-auto text-white text-md font-custom">
                         <p>You searched for city <span className="text-orange-500">"{city}"</span> and the</p>
                         <p className="text-red-500">{error}</p>
                         <button className="inpage-btn px-4 py-1" onClick={() => window.location.reload()}>ok</button>
@@ -69,7 +68,7 @@ function Search() {
                     data &&
                     <>
                         <div className="text-center font-bold font-custom text-blue-500">Search Result</div>
-                        <div className='relative flex bg-dark flex-col justify-center items-center p-5 space-y-2 shadow-2xl text-toolite'>
+                        <div className='relative flex bg-dark flex-col justify-center items-center p-5 space-y-2 shadow-2xl text-toolite max-w-xl mx-auto'>
                             <h2>City: <span className='text-xl text-orange-500 font-custom'>{data.name}</span></h2>
                             <h2>Temp: <span>{parseFloat(data.main.temp - 273.15).toFixed(2)} Celcius</span></h2>
                             <h2>Weather: <span>{data?.weather[0].description}</span></h2>

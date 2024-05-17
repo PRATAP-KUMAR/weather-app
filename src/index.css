@@ -6,7 +6,7 @@
 
 @layer components {
     .btn {
-        @apply bg-white px-2 py-1 font-bold font-custom rounded-md
+        @apply bg-white px-2 py-1 font-bold font-custom rounded-md text-sm
     }
 
     .btn-active {
