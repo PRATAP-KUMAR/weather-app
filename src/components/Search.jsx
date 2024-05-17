@@ -43,6 +43,7 @@ function Search() {
                     placeholder='type city name'
                     onChange={(e) => setCity(e.target.value)}
                     required
+                    autoFocus
                 />
                 <button type="submit" className="inpage-btn">search</button>
             </form>
@@ -58,7 +59,7 @@ function Search() {
                 }
                 {
                     isLoading &&
-                    <div className='min-h-[150px] bg-dark flex items-center justify-center px-4 py-2 text-4xl mx-auto'>
+                    <div className='min-h-[150px] bg-dark flex items-center justify-center px-4 py-2 text-4xl max-w-xl mx-auto'>
                         <div className="animate-spin">
                             <ImSpinner3 />
                         </div>
