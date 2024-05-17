@@ -50,7 +50,7 @@ function Search() {
             <div>
                 {
                     error &&
-                    < div className="min-h-[200px] bg-toodark flex flex-col space-y-2 text-center items-center justify-center px-4 py-2 mx-auto text-white text-md font-custom">
+                    < div className="min-h-[200px] bg-dark max-w-2xl flex flex-col space-y-2 text-center items-center justify-center px-4 py-2 mx-auto text-white text-md font-custom">
                         <p>You searched for city <span className="text-orange-500">"{city}"</span> and the</p>
                         <p className="text-red-500">{error}</p>
                         <button className="inpage-btn px-4 py-1" onClick={() => window.location.reload()}>ok</button>

@@ -15,13 +15,15 @@ function Cities() {
     }
 
     return (
-        <div className='min-h-[calc(100vh-4rem)] bg-toolite max-w-4xl mx-auto'>
-            <div className="flex p-5 flex-col space-y-5">
-                {cities.map((city, idx) => (
-                    <Card city={city} key={city} index={cities.length - (idx)} />
-                ))}
-            </div>
-        </div >
+        <div className="bg-lite">
+            <div className='min-h-[calc(100vh-4rem)] bg-toolite max-w-4xl mx-auto'>
+                <div className="flex p-5 flex-col space-y-5">
+                    {cities.map((city, idx) => (
+                        <Card city={city} key={city} index={cities.length - (idx)} />
+                    ))}
+                </div>
+            </div >
+        </div>
     )
 }
 
