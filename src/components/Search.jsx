@@ -28,14 +28,13 @@ function Search() {
 
     const addCity = (e) => {
         let city = e.target.id;
-        dispatch({ type: "ADD_CITY", payload: city })
+        dispatch({ type: "ADD_CITY", payload: city });
+        setCloseForm(true);
     }
 
     return (
-        <div className='bg-lite p-5 flex flex-col'>
-            <form className='flex max-w-4xl mx-auto items-center justify-center space-x-5'
-                onSubmit={onSubmit}
-            >
+        <div className='bg-lite min-h-24 p-5 items-center justify-center flex flex-col mx-auto max-w-4xl'>
+            <form className='flex mx-auto items-center justify-center space-x-2' onSubmit={onSubmit}>
                 <input
                     className='text-center border border-orange-500 text-orange-500 h-12 outline-none focus:border-2 font-custom placeholder:font-custom'
                     type='text'
@@ -44,14 +43,14 @@ function Search() {
                     required
                     autoFocus
                 />
-                <button type="submit" className="inpage-btn">search</button>
+                <button type="submit" className="inpage-btn">Search</button>
             </form>
 
-            <div>
+            <div className="w-full">
                 {
                     error && !closeForm &&
                     <div className="pt-5">
-                        < div className="min-h-[200px] bg-dark max-w-2xl flex flex-col space-y-2 text-center items-center justify-center px-4 py-2 mx-auto text-white text-md font-custom">
+                        < div className="min-h-[200px] w-full bg-dark flex flex-col space-y-2 text-center items-center justify-center px-4 py-2 mx-auto text-white text-md font-custom">
                             <p>You searched for city <span className="text-orange-500">&quot;{city}&quot;</span> and the</p>
                             <p className="text-red-500">{error}</p>
                             <button className="inpage-btn px-4 py-1" onClick={() => setCloseForm(true)}>ok</button>
@@ -61,7 +60,7 @@ function Search() {
                 {
                     isLoading &&
                     <div className="pt-5">
-                        <div className='min-h-[150px] bg-dark flex items-center justify-center px-4 py-2 text-4xl max-w-xl mx-auto'>
+                        < div className="min-h-[200px] w-full bg-dark flex flex-col space-y-2 text-center items-center justify-center px-4 py-2 mx-auto text-white text-md font-custom">
                             <div className="animate-spin">
                                 <ImSpinner3 />
                             </div>
@@ -70,9 +69,9 @@ function Search() {
                 }
                 {
                     data && !closeForm &&
-                    <div className="pt-5">
-                        <div className="text-center font-bold font-custom text-blue-500">Search Result</div>
-                        <div className='relative flex bg-dark flex-col justify-center items-center p-5 space-y-2 shadow-2xl text-toolite max-w-xl mx-auto'>
+                    <>
+                        <div className="text-center font-bold font-custom text-white">Search Result</div>
+                        <div className='relative flex bg-dark shadow-custom flex-col justify-center items-center p-5 space-y-2 text-toolite mx-auto'>
                             <h2>City: <span className='text-xl text-orange-500 font-custom'>{data.name}</span></h2>
                             <h2>Temp: <span>{parseFloat(data.main.temp - 273.15).toFixed(2)} Celcius</span></h2>
                             <h2>Weather: <span>{data?.weather[0].description}</span></h2>
@@ -86,7 +85,7 @@ function Search() {
                             </div>
                             {disable && <p className="text-white text-xs font-custom">City Already in Cities List</p>}
                         </div>
-                    </div>
+                    </>
                 }
             </div >
         </div >

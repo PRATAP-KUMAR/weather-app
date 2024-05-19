@@ -1,14 +1,13 @@
+import { CitiesContextProvider } from "./context/CitiesContext";
 import Header from "./components/Header";
-import Search from "./components/Search";
-import Cities from "./components/Cities";
+import Home from "./pages/Home";
 
 export default function App() {
 
   return (
-    <>
+    <CitiesContextProvider>
       <Header />
-      <Search />
-      <Cities />
-    </>
+      <Home />
+    </CitiesContextProvider >
   )
 }

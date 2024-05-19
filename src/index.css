@@ -14,7 +14,7 @@
     }
 
     .inpage-btn {
-        @apply bg-lite text-white px-2 py-1 font-bold font-custom rounded-md
+        @apply bg-toodark text-sm xs:text-base text-white px-2 py-1 font-bold font-custom rounded-md
     }
 }
 

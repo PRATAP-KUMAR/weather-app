@@ -3,23 +3,20 @@ import { useCitiesContext } from "../hooks/useCitiesContext";
 
 function Cities() {
     const { cities } = useCitiesContext();
-    console.log(cities);
-
-    if (cities?.length === 0) {
-        return (
-            <div className='min-h-[calc(100vh-4rem)] bg-toolite flex items-center justify-center'>
-                <div className="text-sm font-bold text-center">
-                    <p>No cities were added.</p>
-                    <p>Click search button to search for city and then add.</p>
-                </div>
-            </div>
-        )
-    }
 
     return (
-        <div className="bg-lite">
-            <div className='min-h-[calc(100vh-4rem)] bg-toolite max-w-4xl mx-auto'>
-                <div className="flex p-5 flex-col space-y-5">
+        <div className="bg-toolite min-h-[calc(100vh-10rem)] p-5 max-w-4xl mx-auto h">
+            {
+                cities?.length === 0 &&
+                <div className="font-bold font-custom text-center text-toodark">
+                    <p>No cities were added.</p>
+                    <p>Search for a city and then add.</p>
+                </div>
+            }
+
+            {
+                cities &&
+                <div className="flex flex-col space-y-5">
                     {cities?.map((city, idx) => (
                         <Card
                             key={city}
@@ -28,7 +25,7 @@ function Cities() {
                         />
                     ))}
                 </div>
-            </div >
+            }
         </div>
     )
 }
