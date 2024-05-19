@@ -1,9 +1,11 @@
 import Card from "./Card";
+import { useCitiesContext } from "../hooks/useCitiesContext";
 
 function Cities() {
-    const cities = JSON.parse(localStorage.getItem('cities')) || [];
+    const { cities } = useCitiesContext();
+    console.log(cities);
 
-    if (cities.length === 0) {
+    if (cities?.length === 0) {
         return (
             <div className='min-h-[calc(100vh-4rem)] bg-toolite flex items-center justify-center'>
                 <div className="text-sm font-bold text-center">
@@ -18,8 +20,12 @@ function Cities() {
         <div className="bg-lite">
             <div className='min-h-[calc(100vh-4rem)] bg-toolite max-w-4xl mx-auto'>
                 <div className="flex p-5 flex-col space-y-5">
-                    {cities.map((city, idx) => (
-                        <Card city={city} key={city} index={cities.length - (idx)} />
+                    {cities?.map((city, idx) => (
+                        <Card
+                            key={city}
+                            city={city}
+                            index={cities.length - (idx)}
+                        />
                     ))}
                 </div>
             </div >

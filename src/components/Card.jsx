@@ -4,10 +4,13 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 
 import { useFetchData } from '../hooks/useFetchData';
 import Modal from './Modal';
+import { useCitiesContext } from '../hooks/useCitiesContext';
 
 function Card(props) {
     const obj = props;
     const { city, index } = obj;
+
+    const { dispatch } = useCitiesContext();
 
     const [open, setOpen] = useState(false);
 
@@ -15,14 +18,10 @@ function Card(props) {
 
     useEffect(() => {
         fetchData(city);
-    }, []);
+    }, [city]);
 
     const removeCity = () => {
-        const cities = JSON.parse(localStorage.getItem('cities'));
-        let filtered = cities.filter(c => c !== city);
-        console.log(filtered);
-        localStorage.setItem('cities', JSON.stringify(filtered));
-        window.location.reload();
+        dispatch({ type: "REMOVE_CITY", payload: city });
     }
 
     return (
@@ -31,7 +30,7 @@ function Card(props) {
                 {
                     error &&
                     <div className="min-h-[200px] bg-toodark flex items-center justify-center px-4 py-2 mx-auto text-red-500 text-xl border">
-                        You searched for city "{city}" and the {error}
+                        You searched for city &quot;{city}&quot; and the {error}
                     </div>
                 }
                 {
@@ -72,4 +71,4 @@ function Card(props) {
     )
 }
 
-export default Card
+export default Card;
