@@ -13,6 +13,9 @@ export default {
       ...defaultTheme.screens,
     },
     extend: {
+      boxShadow: {
+        'custom': '2px 2px 2px 2px rgba(21, 52, 72, 0.6)'
+      },
       colors: {
         lite: "#948979",
         toolite: "#dfd0b8",
