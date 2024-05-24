@@ -1,28 +1,31 @@
 import Card from "./Card";
+import { useCitiesContext } from "../hooks/useCitiesContext";
 
 function Cities() {
-    const cities = JSON.parse(localStorage.getItem('cities')) || [];
-
-    if (!cities || !cities.length) {
-        return (
-            <div className='min-h-[calc(100vh-4rem)] bg-sky-200 flex items-center justify-center'>
-                <div className="text-lg md:text-2xl font-bold text-center">
-                    <p>No cities were added.</p>
-                    <p>Click search button to search for city and then add.</p>
-                </div>
-            </div>
-        )
-    }
+    const { cities } = useCitiesContext();
 
     return (
-        <div className="bg-sky-900">
-            <div className='min-h-[calc(100vh-4rem)] bg-sky-200 max-w-md md:max-w-xl mx-auto'>
-                <div className="bg-sky-200">
-                    {cities.map((city, idx) => (
-                        <Card city={city} key={city} index={cities.length - (idx)} />
+        <div className="bg-toolite min-h-[calc(100vh-10rem)] p-5 max-w-4xl mx-auto h">
+            {
+                cities?.length === 0 &&
+                <div className="font-bold font-custom text-center text-toodark">
+                    <p>No cities were added.</p>
+                    <p>Search for a city and then add.</p>
+                </div>
+            }
+
+            {
+                cities &&
+                <div className="flex flex-col space-y-5">
+                    {cities?.map((city, idx) => (
+                        <Card
+                            key={city}
+                            city={city}
+                            index={cities.length - (idx)}
+                        />
                     ))}
                 </div>
-            </div >
+            }
         </div>
     )
 }

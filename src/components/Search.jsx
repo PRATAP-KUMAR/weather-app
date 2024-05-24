@@ -1,97 +1,94 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useFetchData } from "../hooks/useFetchData";
 import { ImSpinner3 } from "react-icons/im";
-import classNames from "./classNames";
-
-const URL = 'https://api.openweathermap.org/data/2.5/weather';
-const APP_ID = '95b6e0a286b8b8ecd2d8e7d0a25b41cb';
+import { useCitiesContext } from "../hooks/useCitiesContext";
 
 function Search() {
-    const [loading, setLoading] = useState(false);
-    const [errorMsg, setErrorMsg] = useState('');
-    const [data, setData] = useState(null);
+    const [city, setCity] = useState(null);
     const [disable, setDisable] = useState(null);
+    const [closeForm, setCloseForm] = useState(null);
 
-    const navigate = useNavigate();
+    const { fetchData, isLoading, data, error } = useFetchData();
+
+    const { dispatch } = useCitiesContext();
+
+    const onSubmit = (e) => {
+        e.preventDefault();
+        setCloseForm(null);
+        fetchData(city);
+        const cities = JSON.parse(localStorage.getItem('cities'));
+        let regex = new RegExp(city.trim().toLowerCase());
+        const match = cities.find(v => regex.test(v));
+        match ?
+            setDisable(true)
+            :
+            setDisable(false)
+        e.target.reset();
+    }
 
     const addCity = (e) => {
         let city = e.target.id;
-        console.log(city);
-        const cities = JSON.parse(localStorage.getItem('cities')) || [];
-        cities.unshift(city.toLowerCase());
-        localStorage.setItem("cities", JSON.stringify(cities));
-        navigate('/');
-    }
-
-    const getSearchValue = (e) => {
-        e.preventDefault();
-        setErrorMsg('');
-        setData(null);
-        setLoading(true);
-        const elements = new FormData(e.currentTarget);
-        const city = elements.get('city').trim();
-        e.currentTarget.reset();
-
-        fetch(`${URL}?q=${city}&appid=${APP_ID}`)
-            .then(response => response.json())
-            .then(data => {
-                if (data.cod === 200) {
-                    setData(data);
-                } else if (!city) {
-                    setErrorMsg('Empty Query');
-                } else {
-                    setErrorMsg(data.message)
-                }
-            })
-            .then(() => setLoading(false))
-            .catch(err => setErrorMsg(err.message))
-
-        localStorage.getItem('cities')?.includes(city.toLowerCase())
-            ?
-            setDisable(true)
-            :
-            setDisable(false);
+        dispatch({ type: "ADD_CITY", payload: city });
+        setCloseForm(true);
     }
 
     return (
-        <div className='min-h-[calc(100vh-4rem)] bg-sky-200 justify-center'>
-            <form className='flex items-center justify-center py-5 space-x-5'
-                onSubmit={getSearchValue}
-            >
-                <input className='text-center border border-sky-400 h-12 outline-none focus:border-2'
+        <div className='bg-lite min-h-24 p-5 items-center justify-center flex flex-col mx-auto max-w-4xl'>
+            <form className='flex mx-auto items-center justify-center space-x-2' onSubmit={onSubmit}>
+                <input
+                    className='text-center border border-orange-500 text-orange-500 h-12 outline-none focus:border-2 font-custom placeholder:font-custom'
                     type='text'
-                    name="city"
                     placeholder='type city name'
+                    onChange={(e) => setCity(e.target.value)}
+                    required
+                    autoFocus
                 />
-                <input type="submit" className="btn-blue" value='Search' />
+                <button type="submit" className="inpage-btn">Search</button>
             </form>
 
-            {loading ? (<div className="animate-spin flex justify-center px-4 py-2 mx-auto text-sky-900 text-4xl"><ImSpinner3 /></div>) : null}
-            {errorMsg ? (<div className="text-center text-red-500">{errorMsg}</div>) : null}
-
-            {
-                data ? (
-                    <div>
-                        <h2 className="text-center font-bold text-orange-500">Search Result</h2>
-                        <div className="relative min-h-[200px] w-fit mx-auto text-white bg-sky-900 justify-center rounded-3xl space-y-5 flex flex-col p-10">
-                            <h2>City: <span>{data?.name}</span></h2>
-                            <h2>Temp: <span>{parseFloat(data?.main?.temp - 273.15).toFixed(2)} Celcius</span></h2>
-                            <h2>Weather: <span>{data?.weather[0]?.description}</span></h2>
-                            <h2>Wind Speed: <span>{data?.wind?.speed} meters/sec</span></h2>
-                            <h2>Country Code: <span>{data?.sys.country}</span></h2>
+            <div className="w-full">
+                {
+                    error && !closeForm &&
+                    <div className="pt-5">
+                        < div className="min-h-[200px] w-full bg-dark flex flex-col space-y-2 text-center items-center justify-center px-4 py-2 mx-auto text-white text-md font-custom">
+                            <p>You searched for city <span className="text-orange-500">&quot;{city}&quot;</span> and the</p>
+                            <p className="text-red-500">{error}</p>
+                            <button className="inpage-btn px-4 py-1" onClick={() => setCloseForm(true)}>ok</button>
                         </div>
-                        <div>
-                            <button id={data?.name.trim()} disabled={disable} onClick={addCity}
-                                className={classNames(disable ? "cursor-not-allowed bg-blue-300 hover:bg-blue-200" : null, "btn-blue w-fit mx-auto mt-5 flex items-center justify-center")}>
-                                Add City
-                            </button>
+                    </div>
+                }
+                {
+                    isLoading &&
+                    <div className="pt-5">
+                        < div className="min-h-[200px] w-full bg-dark flex flex-col space-y-2 text-center items-center justify-center px-4 py-2 mx-auto text-white text-md font-custom">
+                            <div className="animate-spin">
+                                <ImSpinner3 />
+                            </div>
                         </div>
-                        {disable ? <div className="text-center">City already added</div> : null}
-                    </div >
-                )
-                    : null
-            }
-        </div>
+                    </div>
+                }
+                {
+                    data && !closeForm &&
+                    <>
+                        <div className="text-center font-bold font-custom text-white">Search Result</div>
+                        <div className='relative flex bg-dark shadow-custom flex-col justify-center items-center p-5 space-y-2 text-toolite mx-auto'>
+                            <h2>City: <span className='text-xl text-orange-500 font-custom'>{data.name}</span></h2>
+                            <h2>Temp: <span>{parseFloat(data.main.temp - 273.15).toFixed(2)} Celcius</span></h2>
+                            <h2>Weather: <span>{data?.weather[0].description}</span></h2>
+                            <h2>Wind Speed: <span>{data.wind.speed} meters/sec</span></h2>
+                            <h2>Country Code: <span>{data.sys.country}</span></h2>
+                            <div className="flex justify-center space-x-5">
+                                <button id={city} onClick={addCity} disabled={disable} className="inpage-btn disabled:opacity-60">
+                                    Add City
+                                </button>
+                                <button className="inpage-btn px-4 py-1" onClick={() => setCloseForm(true)}>Close</button>
+                            </div>
+                            {disable && <p className="text-white text-xs font-custom">City Already in Cities List</p>}
+                        </div>
+                    </>
+                }
+            </div >
+        </div >
     )
 }
 

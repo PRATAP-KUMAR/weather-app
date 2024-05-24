@@ -1,15 +1,25 @@
+@import url("https://use.typekit.net/ley7xav.css");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer components {
-    .btn-blue {
-        @apply bg-blue-500 hover:bg-blue-700 text-sm md:text-lg text-white font-bold py-2 px-4 rounded;
+    .btn {
+        @apply bg-white px-2 py-1 font-bold font-custom rounded-md text-sm
+    }
+
+    .btn-active {
+        @apply bg-orange-500 text-white
+    }
+
+    .inpage-btn {
+        @apply bg-toodark text-sm xs:text-base text-white px-2 py-1 font-bold font-custom rounded-md
     }
 }
 
 @layer base {
     span {
-        @apply text-orange-500 font-bold capitalize;
+        @apply text-white font-bold capitalize;
     }
 }
